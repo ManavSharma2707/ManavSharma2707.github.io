@@ -1,0 +1,34 @@
+// Generated from design/tokens.json in the profile repo. Run `npm run sync`
+// (or let deploy.yml do it) to refresh this file rather than editing by hand.
+
+export const tokens = {
+  color: {
+    bg: { base: "#0B0C0E", panel: "#12151A", panelAlt: "#171B21" },
+    frame: { crimson: "#8E1020", crimsonDeep: "#5A0A14" },
+    accent: { gold: "#C9A54A", goldLight: "#E8CD7E" },
+    data: { cyan: "#35D6E8", teal: "#1C7E88" },
+    text: { primary: "#E6E8EB", muted: "#8B929C" },
+    line: { subtle: "#2A2F37" },
+  },
+  heatmapScale: ["#1A1F26", "#134A52", "#1C7E88", "#35D6E8", "#E8CD7E"],
+  light: {
+    bg: { base: "#F4F3EF", panel: "#FFFFFF", panelAlt: "#F0EFEC" },
+    frame: { silver: "#C7CBD1", silverDeep: "#9AA0A8" },
+    data: { cyan: "#0E7C86", teal: "#0B6169" },
+    text: { primary: "#1B1D21", muted: "#5B6169" },
+    heatmapScale: ["#E9E7E1", "#BFE3E6", "#6FC4CC", "#0E7C86", "#C9A54A"],
+  },
+  font: { display: "Rajdhani", body: "Inter", mono: "JetBrains Mono" },
+  motion: {
+    emblemRotateSeconds: 20,
+    emblemPulseSeconds: 3,
+    chartDrawSeconds: 1.2,
+    statFadeSeconds: 0.8,
+    heatmapFadeSeconds: 1.5,
+    leaderLineDrawSeconds: 0.6,
+    scanLineSeconds: 2,
+  },
+  spacing: { grid: 8 },
+} as const;
+
+export type Tokens = typeof tokens;
