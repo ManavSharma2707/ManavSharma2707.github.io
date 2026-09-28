@@ -1,9 +1,13 @@
 import { mkdir, writeFile } from "node:fs/promises";
 
-const PROFILE_REPO_RAW = "https://raw.githubusercontent.com/ManavSharma2707/ManavSharma2707/main";
+// The contents API instead of raw.githubusercontent.com: the raw CDN can serve
+// a copy several minutes stale right after the metrics job commits.
+const PROFILE_REPO_CONTENTS = "https://api.github.com/repos/ManavSharma2707/ManavSharma2707/contents";
 
 async function fetchText(path: string): Promise<string> {
-  const response = await fetch(`${PROFILE_REPO_RAW}/${path}`);
+  const headers: Record<string, string> = { Accept: "application/vnd.github.raw" };
+  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  const response = await fetch(`${PROFILE_REPO_CONTENTS}/${path}?ref=main`, { headers });
   if (!response.ok) throw new Error(`Failed to fetch ${path}: ${response.status}`);
   return response.text();
 }
