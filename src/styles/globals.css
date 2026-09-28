@@ -12,6 +12,100 @@
   }
 }
 
+@layer components {
+  .hud-plate {
+    --cut: 22px;
+    background: linear-gradient(180deg, #8e1020 0%, #5a0a14 100%);
+    clip-path: polygon(
+      var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)),
+      calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+    );
+  }
+
+  .hud-trim {
+    --cut: 14px;
+    background: #c9a54a;
+    clip-path: polygon(
+      var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)),
+      calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+    );
+  }
+
+  .hud-body {
+    --cut: 13px;
+    clip-path: polygon(
+      var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)),
+      calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+    );
+  }
+
+  .hud-grid {
+    background-image:
+      linear-gradient(rgba(53, 214, 232, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(53, 214, 232, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    animation: hud-grid-drift 40s linear infinite;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
+  }
+
+  .hud-glow {
+    width: 60vw;
+    height: 60vw;
+    max-width: 900px;
+    max-height: 900px;
+    border-radius: 9999px;
+    filter: blur(90px);
+  }
+
+  .hud-glow-cyan {
+    top: -10%;
+    left: -15%;
+    background: rgba(53, 214, 232, 0.07);
+    animation: hud-glow-a 26s ease-in-out infinite alternate;
+  }
+
+  .hud-glow-crimson {
+    bottom: -15%;
+    right: -15%;
+    background: rgba(142, 16, 32, 0.12);
+    animation: hud-glow-b 32s ease-in-out infinite alternate;
+  }
+
+  .hud-scan {
+    top: 0;
+    height: 120px;
+    background: linear-gradient(180deg, transparent, rgba(232, 205, 126, 0.035), transparent);
+    animation: hud-scan 9s linear infinite;
+  }
+}
+
+@keyframes hud-grid-drift {
+  to {
+    background-position: 48px 48px;
+  }
+}
+
+@keyframes hud-glow-a {
+  to {
+    transform: translate(35vw, 40vh);
+  }
+}
+
+@keyframes hud-glow-b {
+  to {
+    transform: translate(-30vw, -50vh);
+  }
+}
+
+@keyframes hud-scan {
+  from {
+    transform: translateY(-120px);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

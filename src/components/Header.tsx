@@ -1,7 +1,6 @@
 import { FolderGit2, GitPullRequest, CircleDot, MessagesSquare } from "lucide-react";
 import { Emblem } from "./Emblem";
 import type { Metrics } from "../types/metrics";
-import { useDisplayMode } from "../hooks/useDisplayMode";
 
 interface HeaderProps {
   profile: Metrics["profile"];
@@ -15,8 +14,6 @@ const NAV_ITEMS = [
 ];
 
 export function Header({ profile }: HeaderProps) {
-  const [mode, setMode] = useDisplayMode();
-
   return (
     <header className="mb-10 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
       <div className="flex items-center gap-4">
@@ -25,7 +22,7 @@ export function Header({ profile }: HeaderProps) {
           alt={profile.name}
           width={72}
           height={72}
-          className="rounded-full border-2 border-gold"
+          className="aspect-square rounded-full border-2 border-gold object-cover"
         />
         <div>
           <h1 className="font-display text-2xl font-bold uppercase tracking-wide text-ink-primary sm:text-3xl">
@@ -54,14 +51,6 @@ export function Header({ profile }: HeaderProps) {
         </nav>
 
         <Emblem size={72} />
-
-        <button
-          type="button"
-          onClick={() => setMode(mode === "enhanced" ? "minimal" : "enhanced")}
-          className="rounded border border-line-subtle px-3 py-1.5 font-display text-xs uppercase tracking-wider text-ink-muted transition-colors hover:border-gold hover:text-gold"
-        >
-          {mode === "enhanced" ? "Enhanced" : "Minimal"}
-        </button>
       </div>
     </header>
   );

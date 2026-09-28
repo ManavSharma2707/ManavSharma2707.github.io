@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useDisplayMode } from "../hooks/useDisplayMode";
 
 interface EmblemProps {
   size?: number;
@@ -34,18 +33,16 @@ function segmentedRingArcs(cx: number, cy: number, r: number, segments: number):
 
 /** The original concentric-ring emblem: a rotating segmented cyan ring, a gold ring, and a pulsing hex core. */
 export function Emblem({ size = 120, pulsing = false }: EmblemProps) {
-  const [mode] = useDisplayMode();
   const cx = size / 2;
   const cy = size / 2;
   const outerR = size * 0.38;
   const midR = size * 0.27;
   const hexR = size * 0.16;
-  const animated = mode === "enhanced";
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label="Profile emblem">
       <motion.g
-        animate={animated ? { rotate: 360 } : {}}
+        animate={{ rotate: 360 }}
         transition={{ duration: 20, ease: "linear", repeat: Infinity }}
         style={{ transformOrigin: `${cx}px ${cy}px` }}
       >
@@ -55,11 +52,7 @@ export function Emblem({ size = 120, pulsing = false }: EmblemProps) {
       </motion.g>
       <circle cx={cx} cy={cy} r={midR} fill="none" stroke="#C9A54A" strokeWidth={size * 0.012} opacity={0.9} />
       <motion.g
-        animate={
-          animated
-            ? { opacity: pulsing ? [0.75, 1, 0.75] : [0.85, 1, 0.85], scale: pulsing ? [1, 1.08, 1] : 1 }
-            : { opacity: 1, scale: 1 }
-        }
+        animate={{ opacity: pulsing ? [0.75, 1, 0.75] : [0.85, 1, 0.85], scale: pulsing ? [1, 1.08, 1] : 1 }}
         transition={{ duration: pulsing ? 0.8 : 3, ease: "easeInOut", repeat: Infinity }}
         style={{ transformOrigin: `${cx}px ${cy}px` }}
       >

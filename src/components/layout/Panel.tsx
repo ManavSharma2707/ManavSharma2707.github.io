@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { useDisplayMode } from "../../hooks/useDisplayMode";
 
 interface PanelProps {
   label: string;
@@ -12,8 +11,7 @@ interface PanelProps {
 
 /** A HUD-style panel: dark card, thin gold top rule, corner brackets, uppercase label. */
 export function Panel({ label, children, className = "", onMouseEnter, onMouseLeave }: PanelProps) {
-  const [mode] = useDisplayMode();
-  const glow = mode === "enhanced" ? "hover:shadow-[0_0_24px_-8px_rgba(53,214,232,0.35)]" : "";
+  const glow = "hover:shadow-[0_0_24px_-8px_rgba(53,214,232,0.35)]";
 
   return (
     <motion.section
