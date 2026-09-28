@@ -12,8 +12,12 @@ export function ContributionHeatmap({ calendar }: ContributionHeatmapProps) {
   const scale = SCALE;
   const [hovered, setHovered] = useState<{ date: string; count: number } | null>(null);
 
-  const weeks: Metrics["calendar"][] = [];
-  for (let i = 0; i < calendar.length; i += 7) weeks.push(calendar.slice(i, i + 7));
+  type Day = Metrics["calendar"][number];
+  // pad the first column so each row is always the same weekday (Sun at top), like GitHub's graph
+  const leading = calendar[0] ? new Date(`${calendar[0].date}T00:00:00Z`).getUTCDay() : 0;
+  const padded: Array<Day | null> = [...Array<null>(leading).fill(null), ...calendar];
+  const weeks: Array<Array<Day | null>> = [];
+  for (let i = 0; i < padded.length; i += 7) weeks.push(padded.slice(i, i + 7));
 
   return (
     <Panel label="Contributions">
@@ -30,7 +34,10 @@ export function ContributionHeatmap({ calendar }: ContributionHeatmapProps) {
       <div className="flex gap-[2px] overflow-x-auto pb-1">
         {weeks.map((week, wi) => (
           <div key={wi} className="flex flex-col gap-[2px]">
-            {week.map((day) => (
+            {week.map((day, di) =>
+              !day ? (
+                <span key={`pad-${di}`} className="h-[10px] w-[10px]" />
+              ) : (
               <button
                 key={day.date}
                 type="button"
@@ -42,7 +49,8 @@ export function ContributionHeatmap({ calendar }: ContributionHeatmapProps) {
                 className="h-[10px] w-[10px] rounded-[2px] transition-transform hover:scale-125"
                 style={{ backgroundColor: scale[day.level] ?? scale[0] }}
               />
-            ))}
+              ),
+            )}
           </div>
         ))}
       </div>
